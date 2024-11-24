@@ -33,6 +33,7 @@ AccreditationResult calculate_accreditation(float ndtps, float pgblk, float ndgb
                                                     : 0;
 
   // 2. Hitung Skor Jabatan Akademik
+  pgblk = (ndtps > 0) ? ((ndgb + ndlk) / ndtps) * 100 : 0;
   float skor_pgblk = (pgblk >= 70) ? 4 : 2 + (20.0f * (pgblk / 100)) / 7;
 
   // 3. Hitung Skor Kurikulum
@@ -91,8 +92,8 @@ int main()
   printf("======================================================================================\n");
   printf("                   SISTEM PENILAIAN AKREDITASI MAGISTER DAN TERAPAN                   \n");
   printf("======================================================================================\n");
-  printf("\nPetunjuk: Silakan baca ketentuan penilaian di:\n");
-  printf("https://www.banpt.or.id/wp-content/uploads/2020/03Lampiran-H-PerBAN-PT-2-2020-ISK\n      -Matriks-Penilaian-ISK-APS-Magister-dan-Magister-Terapan.pdf\n");
+  printf("petunjuk: Silakan baca ketentuan penilaian di:\n");
+  printf("\nhttps://www.banpt.or.id/wp-content/uploads/2020/03Lampiran-H-PerBAN-PT-2-2020-ISK\n      -Matriks-Penilaian-ISK-APS-Magister-dan-Magister-Terapan.pdf\n");
   printf("======================================================================================\n");
 
   print_with_delay("\nSelamat datang di sistem penilaian akreditasi magister dan terapan\n", 35);
@@ -114,35 +115,32 @@ int main()
   ;
   int spmi_aspects, tracer_study_aspects, hasil_tracer_study, aspek;
 
-  printf("\nMasukkan data berikut dengan hati-hati:\n");
-  printf("---------------------------------------------------------------------------------------\n");
-  printf("1. Jumlah Dosen Tetap (DTPS):\n");
+
+  printf("======================================================================================\n");
+  printf("Masukkan data berikut dengan hati-hati:\n");
+  printf("--------------------------------------------------------------------------------------\n");
+  printf("1. Jumlah Dosen Tetap (DTPS)\n ");
   printf("==>  ");
   scanf("%f", &ndtps);
   printf("--------------------------------------------------------------------------------------\n");
 
   printf("2. Persentase Jabatan Akademik (PGBLK):\n");
-  printf("   Masukkan Jumlah DTPS yang memiliki jabatan akademik Guru Besar (NDGB)\n");
+  printf("   Masukkan Jumlah DTPS yang memiliki jabatan akademik Guru Besar (NDGB)\n ");
   printf("==>  ");
   scanf("%f", &ndgb);
-  printf("   Masukkan Jumlah DTPS yang memiliki jabatan akademik Lektor Kepala (NDLK)\n");
+  printf("   Masukkan Jumlah DTPS yang memiliki jabatan akademik Lektor Kepala (NDLK)\n ");
   printf("==>  ");
   scanf("%f", &ndlk);
-  if (ndtps > 0)
+  if (ndtps < 1)
   {
-    pgblk = ((ndgb + ndlk) / ndtps) * 100;
-  }
-  else
-  {
-    printf("Peringatan: Jumlah NDTPS tidak boleh nol. PGBLK diatur ke 0.\n");
-    pgblk = 0;
+   printf("Peringatan: Jumlah NDTPS tidak boleh nol. PGBLK diatur ke 0.\n");
   }
   printf("--------------------------------------------------------------------------------------\n");
 
   printf("3. Keterlibatan Pemangku Kepentingan:\n");
   printf("   - 4: Pemutakhiran melibatkan internal, eksternal, dan pakar setiap 4-5 tahun\n");
   printf("   - 3: Melibatkan internal dan eksternal\n");
-  printf("   - 2: Melibatkan internal saja\n");
+  printf("   - 2: Melibatkan internal saja\n ");
   printf("==>  ");
   scanf("%f", &kurikulum_A);
   printf("--------------------------------------------------------------------------------------\n");
@@ -151,7 +149,7 @@ int main()
   printf("   - 4: Capaian sesuai profil lulusan, KKNI, dan dimutakhirkan tiap 4-5 tahun\n");
   printf("   - 3: Capaian sesuai profil dan KKNI tetapi tanpa mutakhir secara berkala\n");
   printf("   - 2: Capaian sesuai profil lulusan tetapi tidak memenuhi KKNI\n");
-  printf("   - 1: Tidak sesuai dengan profil lulusan\n");
+  printf("   - 1: Tidak sesuai dengan profil lulusan\n ");
   printf("==>  ");
   scanf("%f", &kurikulum_B);
   printf("--------------------------------------------------------------------------------------\n");
@@ -162,51 +160,51 @@ int main()
   printf("            * Semua capaian pembelajaran mata kuliah mendukung capaian pembelajaran\n              lulusan.\n");
   printf("   - 3: Struktur kurikulum cukup baik, sebagian besar mendukung capaian pembelajaran\n        lulusan.\n");
   printf("   - 2: Struktur kurikulum hanya menggambarkan sebagian keterkaitan antara mata kuliah\n        dan capaian pembelajaran.\n");
-  printf("   - 1: Struktur kurikulum tidak sesuai dengan capaian pembelajaran lulusan.\n");
+  printf("   - 1: Struktur kurikulum tidak sesuai dengan capaian pembelajaran lulusan.\n ");
   printf("==>  ");
   scanf("%f", &kurikulum_C);
   printf("--------------------------------------------------------------------------------------\n");
 
-  printf("6. Jumlah Aspek SPMI yang Terpenuhi (1-5):\n");
+  printf("6. Jumlah Aspek SPMI yang Terpenuhi (1-5):\n ");
   printf("==>  ");
   scanf("%d", &spmi_aspects);
   printf("--------------------------------------------------------------------------------------\n");
 
-  printf("7. Jumlah Aspek Tracer Study yang Terpenuhi (1-5):\n");
+  printf("7. Jumlah Aspek Tracer Study yang Terpenuhi (1-5):\n ");
   printf("==>  ");
   scanf("%d", &tracer_study_aspects);
   printf("--------------------------------------------------------------------------------------\n");
 
-  printf("8. Persentase Kesesuaian Bidang Kerja:\n");
+  printf("8. Persentase Kesesuaian Bidang Kerja:\n ");
   printf("==>  ");
   scanf("%f", &bidang_kerja);
   printf("--------------------------------------------------------------------------------------\n");
 
-  printf("9. Persentase Publikasi Internasional (RI):\n");
+  printf("9. Persentase Publikasi Internasional (RI):\n ");
   printf("==>  ");
   scanf("%f", &ri);
   printf("--------------------------------------------------------------------------------------\n");
 
-  printf("10. Persentase Publikasi Nasional (RN):\n");
+  printf("10. Persentase Publikasi Nasional (RN):\n ");
   printf("==>  ");
   scanf("%f", &rn);
   printf("--------------------------------------------------------------------------------------\n");
 
-  printf("11. Persentase Publikasi Lokal (RL):\n");
+  printf("11. Persentase Publikasi Lokal (RL):\n ");
   printf("==>  ");
   scanf("%f", &rl);
   printf("--------------------------------------------------------------------------------------\n");
 
-  printf("12. Skor Pelampauan SN-DIKTI (1-4):\n");
+  printf("12. Skor Pelampauan SN-DIKTI (1-4):\n ");
   printf("==>  ");
   scanf("%f", &sn_dikti);
   printf("--------------------------------------------------------------------------------------\n");
 
   printf("13. Skor Kepuasan Pengguna Lulusan:\n");
-  printf("    -Masukkan persentase responden dengan penilaian 'Sangat Baik' (ai)\n");
+  printf("    -Masukkan persentase responden dengan penilaian 'Sangat Baik' (ai)\n ");
   printf("==>  ");
   scanf("%f", &sangat_baik);
-  printf("    -Masukkan persentase responden dengan penilaian 'Baik' (bi)\n");
+  printf("    -Masukkan persentase responden dengan penilaian 'Baik' (bi)\n ");
   printf("==>  ");
   scanf("%f", &baik);
   printf("    -Masukkan persentase responden dengan penilaian 'Cukup' (ci)\n ");
@@ -215,7 +213,8 @@ int main()
   printf("    -Masukkan persentase responden dengan penilaian 'Kurang' (di)\n ");
   printf("==>  ");
   scanf("%f", &kurang);
-  printf("    -Berapa jumlah aspek yang dinilai untuk kepuasan pengguna? (1-7): ");
+  printf("    -Berapa jumlah aspek yang dinilai untuk kepuasan pengguna? (1-7)\n ");
+  printf("==>  ");
   scanf("%d", &aspek);
 
   // Validasi jumlah aspek
